@@ -4,6 +4,7 @@ const userSchema = mongoose.Schema({
   username: {
     type: String,
     required: true,
+    match: [/^[a-zA-Z0-9]+$/, 'Username can only contain alphanumeric characters'],
   },
   password: {
     type: String,
@@ -17,6 +18,7 @@ const userSchema = mongoose.Schema({
   },
   phoneNumber: {
     type: String,
+    match: [/^\d{10}$/, 'Please enter a valid 10-digit phone number'],
   },
   dob: {
     type: Date,

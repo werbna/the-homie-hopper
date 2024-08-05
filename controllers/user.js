@@ -5,11 +5,11 @@ const bcrypt = require('bcrypt');
 const User = require('../models/user.js');
 
 router.get('/sign-up', (req, res) => {
-  res.render('auth/sign-up.ejs');
+  res.render('users/sign-up.ejs');
 });
 
 router.get('/sign-in', (req, res) => {
-  res.render('auth/sign-in.ejs');
+  res.render('users/sign-in.ejs');
 });
 
 router.get('/sign-out', (req, res) => {
@@ -38,7 +38,7 @@ router.post('/sign-up', async (req, res) => {
     // All ready to create the new user!
     await User.create(req.body);
   
-    res.redirect('/auth/sign-in');
+    res.redirect('/users/sign-in');
   } catch (error) {
     console.log(error);
     res.redirect('/');

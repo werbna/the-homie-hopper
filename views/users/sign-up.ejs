@@ -7,18 +7,28 @@
 </head>
 <body>
   <h1>Create a new account!</h1>
-  <form action="/auth/sign-up" method="POST">
+  <form action="/users/sign-up" method="POST">
     <label for="username">Username:</label>
     <input type="text" name="username" id="username" required />
+
     <label for="password">Password:</label>
     <input type="password" name="password" id="password" required />
+
     <label for="confirmPassword">Confirm Password:</label>
-    <input 
-      type="password"
-      name="confirmPassword"
-      id="confirmPassword"
-      required 
-    />
+    <input type="password" name="confirmPassword" id="confirmPassword" required />
+
+    <label for="email">Email:</label>
+    <input type="email" name="email" id="email" required />
+
+    <label for="phoneNumber">Phone Number:</label>
+    <input type="tel" name="phoneNumber" id="phoneNumber" />
+
+    <label for="dob">Date of Birth:</label>
+    <input type="date" name="dob" id="dob" />
+
+    <label for="address">Address:</label>
+    <input type="text" name="address" id="address" />
+
     <button type="submit">Sign up</button>
   </form>
 </body>

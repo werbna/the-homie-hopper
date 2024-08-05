@@ -6,12 +6,13 @@ const mongoose = require('mongoose');
 const methodOverride = require('method-override');
 const morgan = require('morgan');
 const session = require('express-session');
-const regex = require('regex');
-import {regex, pattern} from 'regex';
 const isSignedIn = require('./middleware/is-signed-in.js');
 const passUserToView = require('./middleware/pass-user-to-view.js');
+const userController = require('./controllers/user.js');
+const shelterController = require('./controllers/shelters.js')
+const animalsController = require('./controllers/animals.js')
 
-const authController = require('./controllers/auth.js');
+app.set('view engine', 'ejs');
 
 const port = process.env.PORT ? process.env.PORT : '3000';
 
@@ -38,19 +39,11 @@ app.get('/', (req, res) => {
   });
 });
 
-app.get('/vip-lounge', (req, res) => {
-  if (req.session.user) {
-    res.send(`Welcome to the party ${req.session.user.username}.`);
-  } else {
-    res.send('Sorry, no guests allowed.');
-  }
-});
-
 app.use(passUserToView);
-app.use('/auth', authController);
+app.use('/users', userController);
 app.use(isSignedIn);
 app.use('/shelters', shelterController);
-app.use('animals', animalsController);
+app.use('/animals', animalsController);
 
 
 app.listen(port, () => {

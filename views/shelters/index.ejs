@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Shelters</title>
+</head>
+<body>
+    <h1>Shelters</h1>
+    <a href="/shelters/new">Add New Shelter</a>
+    <ul>
+        <% shelters.forEach(shelter => { %>
+            <li>
+                <a href="/shelters/<%= shelter._id %>"><%= shelter.name %></a>
+            </li>
+        <% }) %>
+    </ul>
+</body>
+</html>

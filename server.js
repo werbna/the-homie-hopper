@@ -8,6 +8,8 @@ const morgan = require('morgan');
 const session = require('express-session');
 const regex = require('regex');
 import {regex, pattern} from 'regex';
+const isSignedIn = require('./middleware/is-signed-in.js');
+const passUserToView = require('./middleware/pass-user-to-view.js');
 
 const authController = require('./controllers/auth.js');
 
@@ -44,7 +46,12 @@ app.get('/vip-lounge', (req, res) => {
   }
 });
 
+app.use(passUserToView);
 app.use('/auth', authController);
+app.use(isSignedIn);
+app.use('/shelters', shelterController);
+app.use('animals', animalsController);
+
 
 app.listen(port, () => {
   console.log(`The express app is ready on port ${port}!`);

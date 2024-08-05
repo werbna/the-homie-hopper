@@ -8,9 +8,9 @@ const morgan = require('morgan');
 const session = require('express-session');
 const isSignedIn = require('./middleware/is-signed-in.js');
 const passUserToView = require('./middleware/pass-user-to-view.js');
-const userController = require('./controllers/user.js');
-const shelterController = require('./controllers/shelters.js')
-const animalsController = require('./controllers/animals.js')
+const userController = require('./controllers/user.js')
+const shelterController = require('./controllers/shelter.js')
+const animalsController = require('./controllers/animal.js')
 
 app.set('view engine', 'ejs');
 

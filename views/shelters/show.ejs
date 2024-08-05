@@ -5,20 +5,17 @@
     <title><%= shelter.name %></title>
 </head>
 <body>
-    <h1><%= shelter.name %></h1>
-    <p>Organization: <%= shelter.organization %></p>
-    <p>Location: <%= shelter.location %></p>
-    <p>Contact: <%= shelter.contact %></p>
-    <p>Animals:
-        <ul>
-            <% shelter.animals.forEach(animal => { %>
-                <li><a href="/animals/<%= animal._id %>"><%= animal.name %></a></li>
-            <% }) %>
-        </ul>
-    </p>
-    <a href="/shelters/<%= shelter._id %>/edit">Edit</a>
-    <form action="/shelters/<%= shelter._id %>?_method=DELETE" method="POST">
-        <button type="submit">Delete</button>
-    </form>
-</body>
-</html>
+  <%- include('../partials/_navbar') %>
+
+  <h1><%= shelter.name %></h1>
+  <p>Organization: <%= shelter.organization %></p>
+  <p>Location: <%= shelter.location %></p>
+  <p>Contact: <%= shelter.contact %></p>
+  <h2>Animals</h2>
+  <ul>
+    <% shelter.animals.forEach(animal => { %>
+      <li><a href="/animals/<%= animal._id %>"><%= animal.name %></a></li>
+    <% }) %>
+  </ul>
+  <a href="/shelters">Back to Shelters</a>
+  

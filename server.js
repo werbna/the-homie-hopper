@@ -7,6 +7,7 @@ const methodOverride = require('method-override');
 const morgan = require('morgan');
 const session = require('express-session');
 const regex = require('regex');
+import {regex, pattern} from 'regex';
 
 const authController = require('./controllers/auth.js');
 

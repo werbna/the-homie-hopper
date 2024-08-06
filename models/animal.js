@@ -24,7 +24,7 @@ const animalSchema = new mongoose.Schema({
   },
   coat: {
     type: String,
-    enum: ['short', 'medium', 'long', 'hairless'],
+    enum: ['short', 'medium', 'long', 'curly', 'hairless'],
     required: true,
   },
   adopted: {
@@ -33,7 +33,6 @@ const animalSchema = new mongoose.Schema({
   },
   adoptionDate: {
     type: Date,
-    required: true,
   },
   favoriteBy: [{
     type: mongoose.Schema.Types.ObjectId,

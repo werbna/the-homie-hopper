@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>index</title>
+</head>
+<body>
+  <%- include('../partials/_navbar') %>
+
+<h1>Animals</h1>
+<ul>
+  <% animals.forEach(animal => { %>
+    <li>
+      <a href="/animals/<%= animal._id %>"><%= animal.name %></a>
+      <a href="/animals/<%= animal._id %>/edit">Edit</a>
+      <form action="/animals/<%= animal._id %>?_method=DELETE" method="POST" style="display:inline;">
+        <button type="submit">Delete</button>
+      </form>
+    </li>
+  <% }) %>
+</ul>
+<a href="/animals/new">Add Animal</a>
+
+</body>
+</html>

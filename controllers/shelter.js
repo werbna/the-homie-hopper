@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const User = require("../models/user.js");
 const Animal = require("../models/animal.js");
 const Shelter = require("../models/shelter.js");
 
@@ -13,12 +12,10 @@ router.get("/", async (req, res) => {
     }
 });
 
-// Display shelter create form on GET
 router.get("/new", (req, res) => {
     res.render("shelters/new");
 });
 
-// Handle shelter create on POST
 router.post("/", async (req, res) => {
     try {
         const shelter = new Shelter(req.body);
@@ -28,17 +25,16 @@ router.post("/", async (req, res) => {
         console.log(err);
 }});
 
-// Display detail page for a specific shelter
-router.get("/:id", async (req, res) => {
+router.get('/:id', async (req, res) => {
     try {
-    const shelter = await Shelter.findById(req.params.id).populate("animals");
-    res.render("shelters/show", { shelter });
-    } catch (err) {
-    console.log(err);
+        const shelter = await Shelter.findById(req.params.id).populate('animals');
+        res.render('shelters/show', { shelter });
+    } catch (error) {
+        console.log(error);
+        res.redirect('/shelters');
     }
 });
 
-// Display shelter update form on GET
 router.get("/:id/edit", async (req, res) => {
     try {
         const shelter = await Shelter.findById(req.params.id);
@@ -46,8 +42,6 @@ router.get("/:id/edit", async (req, res) => {
     } catch (err) {
         console.log(err);
 }});
-
-// Handle shelter update on PUT
 router.put("/:id", async (req, res) => {
     try {
         const shelter = await Shelter.findByIdAndUpdate(req.params.id, req.body,)
@@ -56,10 +50,6 @@ router.put("/:id", async (req, res) => {
         console.log(err);
 }});
 
-
-
-
-// Handle shelter delete on DELETE
 router.delete("/:id", async (req, res) => {
     try {
         await Shelter.findByIdAndRemove(req.params.id);

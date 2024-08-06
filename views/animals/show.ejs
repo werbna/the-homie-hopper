@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>View Animal</title>
+</head>
+<body>
+  <%- include('../partials/_navbar') %>
+
+  <h1><%= animal.name %></h1>
+  <p>Type: <%= animal.typeOfAnimal %></p>
+  <p>Breed: <%= animal.breed %></p>
+  <p>Age: <%= animal.age %></p>
+  <p>Coat: <%= animal.coat %></p>
+  <p>Adopted: <%= animal.adopted ? 'Yes' : 'No' %></p>
+  <% if (animal.adopted) { %>
+    <p>Adoption Date: <%= animal.adoptionDate.toDateString() %></p>
+  <% } %>
+  <form action="/animals/<%= animal._id %>/favorite" method="POST">
+    <button type="submit">Favorite</button>
+  </form>
+
+  <h3>Favorited By:</h3>
+  <ul>
+    <% animal.favoriteBy.forEach(user => { %>
+      <li><%= user.username %></li>
+    <% }) %>
+  </ul>
+
+  <a href="/animals/<%= animal._id %>/edit">Edit</a>
+  <form action="/animals/<%= animal._id %>" method="post">
+    <input type="hidden" name="_method" value="delete">
+    <button type="submit">Delete</button>
+  </form>
+  <script src="/js/script.js"></script>
+</body>
+</html>

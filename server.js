@@ -11,6 +11,7 @@ const passUserToView = require('./middleware/pass-user-to-view.js');
 const userController = require('./controllers/user.js')
 const shelterController = require('./controllers/shelter.js')
 const animalsController = require('./controllers/animal.js')
+const path = require('path');
 
 app.set('view engine', 'ejs');
 
@@ -21,6 +22,8 @@ mongoose.connect(process.env.MONGODB_URI);
 mongoose.connection.on('connected', () => {
   console.log(`Connected to MongoDB ${mongoose.connection.name}.`);
 });
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride('_method'));
@@ -38,6 +41,7 @@ app.get('/', (req, res) => {
     user: req.session.user,
   });
 });
+
 
 app.use(passUserToView);
 app.use('/users', userController);

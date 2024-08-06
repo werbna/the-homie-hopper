@@ -16,7 +16,8 @@
   <h3>Animals:</h3>
   <ul>
     <% shelter.animals.forEach(animal => { %>
-      <li><a href="/animals/<%= animal._id %>"><%= animal.name %></a> - <%= animal.typeOfAnimal %></li>
+      <li><a href="/animals/<%= animal._id %>"><%= animal.name %></a> - <%= animal.typeOfAnimal %>
+      </li>
     <% }) %>
   </ul>
 

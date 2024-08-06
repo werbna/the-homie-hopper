@@ -49,7 +49,6 @@ app.use(isSignedIn);
 app.use('/shelters', shelterController);
 app.use('/animals', animalsController);
 
-
 app.listen(port, () => {
   console.log(`The express app is ready on port ${port}!`);
 });

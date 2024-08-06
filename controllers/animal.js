@@ -3,6 +3,7 @@ const router = express.Router();
 const User = require('../models/user');
 const Shelter = require('../models/shelter');
 const Animal = require('../models/animal');
+const isSignedIn = require('../middleware/is-signed-in');
 
 router.get('/', async (req, res) => {
   try {
@@ -30,6 +31,13 @@ router.post('/', async (req, res) => {
     const animal = new Animal(req.body);
     await animal.save();
     res.redirect('/animals');
+
+    const shelter = await Shelter.findById(req.body.location);
+    if (shelter) {
+    shelter.animals.push(animal._id);
+    await shelter.save();
+    }
+
   } catch (error) {
     console.error(error);
   }
@@ -70,6 +78,21 @@ router.delete('/:id', async (req, res) => {
     res.redirect('/animals');
   } catch (error) {
     console.error(error);
+  }
+});
+
+router.post('/:id/favorite', isSignedIn, async (req, res) => {
+  try {
+    const animal = await Animal.findById(req.params.id);
+    const user = req.user;
+    if (animal && user && animal.favoriteBy.indexOf(user._id) === -1) {
+      animal.favoriteBy.push(user._id);
+      await animal.save();
+    }
+    res.redirect(`/animals/${animal._id}`);
+  } catch (error) {
+    console.log(error);
+    res.redirect(`/animals/${req.params.id}`);
   }
 });
 

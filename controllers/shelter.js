@@ -27,10 +27,11 @@ router.post("/", async (req, res) => {
 
 router.get('/:id', async (req, res) => {
     try {
-        const shelter = await Shelter.findById(req.params.id).populate('animals');
+        const shelter = await Shelter.findById(req.params.id).populate('animals')
+        console.log('animals:', shelter.animals);
         res.render('shelters/show', { shelter });
-    } catch (error) {
-        console.log(error);
+    } catch (err) {
+        console.log(err);
         res.redirect('/shelters');
     }
 });

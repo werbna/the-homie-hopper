@@ -39,14 +39,23 @@
     </select>
 
     <label for="adopted">Adopted:</label>
-    <select name="adopted" id="adopted" required>
+    <select name="adopted" id="adopted" onchange="toggleAdoptionDate()" required>
       <option value="no">No</option>
       <option value="yes">Yes</option>
     </select>
 
     <div id="adoptionDateField" style="display: none;">
       <label for="adoptionDate">Adoption Date:</label>
-      <input type="date" name="adoptionDate">
+      <input type="date" name="adoptionDate" id="adoptionDate">
+    </div>
+
+    <div id="ownerField" style="display: none;">
+      <label for="owner" id="ownerLabel" style="display: none;">Owner:</label>
+      <select name="owner" id="owner">
+        <% owners.forEach(owner => { %>
+          <option value="<%= owner._id %>"><%= owner.username %></option>
+        <% }) %>
+      </select>
     </div>
 
     <button type="submit">Add Animal</button>

@@ -1,14 +1,17 @@
 function toggleAdoptionDate() {
   const adopted = document.getElementById('adopted').value;
   const adoptionDateField = document.getElementById('adoptionDateField');
-  const ownerField = document.getElementById('owner');
+  const ownerField = document.getElementById('ownerField');
+  const ownerLabel = document.getElementById('ownerLabel');
+
   if (adopted === 'yes') {
     adoptionDateField.style.display = 'block';
-    ownerField.value = ''; // Clear the owner field when adopted
+    ownerField.style.display = 'block';
+    ownerLabel.style.display = 'block';
   } else {
     adoptionDateField.style.display = 'none';
-    const shelterSelect = document.getElementById('location');
-    ownerField.value = shelterSelect.options[shelterSelect.selectedIndex].text;
+    ownerField.style.display = 'none';
+    ownerLabel.style.display = 'none';
   }
 }
 
@@ -33,7 +36,6 @@ function favoriteAnimal(animalId) {
     }
   }).catch(error => console.error('Error:', error));
 }
-
 
 window.onload = function() {
   toggleAdoptionDate();

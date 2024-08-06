@@ -11,6 +11,8 @@ const passUserToView = require('./middleware/pass-user-to-view.js');
 const userController = require('./controllers/user.js')
 const shelterController = require('./controllers/shelter.js')
 const animalsController = require('./controllers/animal.js')
+const User = require('./models/user');
+const Animal = require('./models/animal');
 const path = require('path');
 
 app.set('view engine', 'ejs');
@@ -36,12 +38,19 @@ app.use(
   })
 );
 
-app.get('/', (req, res) => {
-  res.render('index.ejs', {
-    user: req.session.user,
-  });
+app.get('/', async (req, res) => {
+  try {
+    let user = null;
+    let favoritedAnimals = [];
+    if (req.session.user) {
+      user = await User.findById(req.session.user._id).populate('favorited');
+      favoritedAnimals = user.favorited;
+    }
+    res.render('index', { user, favoritedAnimals });
+  } catch (error) {
+    console.error(error);
+  }
 });
-
 
 app.use(passUserToView);
 app.use('/users', userController);

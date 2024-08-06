@@ -25,11 +25,11 @@ const userSchema = mongoose.Schema({
   },
   adopted: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Puppy',
+    ref: 'Animal',
   }],
   favorited: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Listing', 
+    ref: 'Animal', 
   }],
 });
 

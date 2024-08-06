@@ -17,11 +17,10 @@ router.get('/', async (req, res) => {
 router.get('/new', async (req, res) => {
   try {
     const shelters = await Shelter.find();
-    const users = await User.find();
-    res.render('animals/new', { shelters, users });
-  } catch (error) {
-    console.log(error);
-    res.redirect('/animals');
+    const owners = await User.find(); // Fetch the list of users
+    res.render('animals/new', { shelters, owners });
+  } catch (err) {
+    console.error(err);
   }
 });
 
@@ -44,13 +43,13 @@ router.post('/', async (req, res) => {
 
 router.get('/:id/edit', async (req, res) => {
   try {
-    const animal = await Animal.findById(req.params.id).populate('location').populate('favoriteBy');
+    const animal = await Animal.findById(req.params.id).populate('favoriteBy');
     const shelters = await Shelter.find();
-    const users = await User.find();
-    res.render('animals/edit', { animal, shelters, users });
-  } catch (error) {
-    console.log(error);
-    res.redirect('/animals');
+    const owners = await User.find();
+    res.render('animals/edit', { animal, shelters, owners });
+  } catch (err) {
+    console.error(err);
+    res.redirect('/');
   }
 });
 
@@ -84,16 +83,24 @@ router.delete('/:id', async (req, res) => {
 router.post('/:id/favorite', isSignedIn, async (req, res) => {
   try {
     const animal = await Animal.findById(req.params.id);
-    const user = req.session.user;
+    const user = await User.findById(req.session.user._id);
+    
     if (animal && user) {
-      const favoriteIndex = animal.favoriteBy.indexOf(user._id);
-      if (favoriteIndex === -1) {
+      const animalFavoriteIndex = animal.favoriteBy.indexOf(user._id);
+      const userFavoriteIndex = user.favorited.indexOf(animal._id);
+
+      if (animalFavoriteIndex === -1 && userFavoriteIndex === -1) {
         animal.favoriteBy.push(user._id);
+        user.favorited.push(animal._id);
       } else {
-        animal.favoriteBy.splice(favoriteIndex, 1);
+        animal.favoriteBy.splice(animalFavoriteIndex, 1);
+        user.favorited.splice(userFavoriteIndex, 1);
       }
+      
       await animal.save();
+      await user.save();
     }
+
     res.redirect(`/animals/${animal._id}`);
   } catch (error) {
     console.log(error);

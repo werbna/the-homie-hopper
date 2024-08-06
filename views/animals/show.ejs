@@ -18,19 +18,19 @@
   <% if (animal.adopted) { %>
     <p>Adoption Date: <%= animal.adoptionDate.toDateString() %></p>
   <% } %>
+
   <form action="/animals/<%= animal._id %>/favorite" method="POST">
-    <button type="submit">Favorite</button>
+    <button type="submit">
+      <% if (animal.favoriteBy.some(user => user._id.toString() === currentUser._id.toString())) { %>
+        Unfavorite
+      <% } else { %>
+        Favorite
+      <% } %>
+    </button>
   </form>
 
-  <h3>Favorited By:</h3>
-  <ul>
-    <% animal.favoriteBy.forEach(user => { %>
-      <li><%= user.username %></li>
-    <% }) %>
-  </ul>
-
   <a href="/animals/<%= animal._id %>/edit">Edit</a>
-  <form action="/animals/<%= animal._id %>" method="post">
+  <form action="/animals/<%= animal._id %>?_method=DELETE" method="post">
     <input type="hidden" name="_method" value="delete">
     <button type="submit">Delete</button>
   </form>

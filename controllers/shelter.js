@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const Animal = require("../models/animal.js");
 const Shelter = require("../models/shelter.js");
-
 router.get("/", async (req, res) => {
     try {
         const shelters = await Shelter.find();
@@ -28,7 +27,6 @@ router.post("/", async (req, res) => {
 router.get('/:id', async (req, res) => {
     try {
         const shelter = await Shelter.findById(req.params.id).populate('animals')
-        console.log('animals:', shelter.animals);
         res.render('shelters/show', { shelter });
     } catch (err) {
         console.log(err);

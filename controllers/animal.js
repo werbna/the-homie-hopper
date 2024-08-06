@@ -4,7 +4,6 @@ const User = require('../models/user');
 const Shelter = require('../models/shelter');
 const Animal = require('../models/animal');
 const isSignedIn = require('../middleware/is-signed-in');
-
 router.get('/', async (req, res) => {
   try {
     const animals = await Animal.find({});
@@ -67,7 +66,8 @@ router.put('/:id', async (req, res) => {
 router.get('/:id', async (req, res) => {
   try {
     const animal = await Animal.findById(req.params.id).populate('location').populate('favoriteBy').populate('owner');
-    res.render('animals/show', { animal });
+    const currentUser = req.session.user;
+    res.render('animals/show', { animal,currentUser });
   } catch (error) {
     console.error(error);
   }
@@ -84,9 +84,14 @@ router.delete('/:id', async (req, res) => {
 router.post('/:id/favorite', isSignedIn, async (req, res) => {
   try {
     const animal = await Animal.findById(req.params.id);
-    const user = req.user;
-    if (animal && user && animal.favoriteBy.indexOf(user._id) === -1) {
-      animal.favoriteBy.push(user._id);
+    const user = req.session.user;
+    if (animal && user) {
+      const favoriteIndex = animal.favoriteBy.indexOf(user._id);
+      if (favoriteIndex === -1) {
+        animal.favoriteBy.push(user._id);
+      } else {
+        animal.favoriteBy.splice(favoriteIndex, 1);
+      }
       await animal.save();
     }
     res.redirect(`/animals/${animal._id}`);
@@ -95,5 +100,6 @@ router.post('/:id/favorite', isSignedIn, async (req, res) => {
     res.redirect(`/animals/${req.params.id}`);
   }
 });
+
 
 module.exports = router;

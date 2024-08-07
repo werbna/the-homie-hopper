@@ -15,14 +15,18 @@
       <% animals.forEach(animal => { %>
         <li>
           <a href="/animals/<%= animal._id %>"><%= animal.name %></a>
-          <a href="/animals/<%= animal._id %>/edit">Edit</a>
+          <form action="/animals/<%= animal._id %>/edit" method="get" style="display:inline;">
+            <button type="submit" class="button-link">Edit Animal</button>
+          </form>
           <form action="/animals/<%= animal._id %>?_method=DELETE" method="POST" style="display:inline;">
             <button type="submit">Delete</button>
           </form>
         </li>
       <% }) %>
     </ul>
-    <a href="/animals/new">Add Animal</a>
+    <form action="/animals/new" method="get" >
+      <button type="submit">Add Animal</button>
+    </form>
   </div>
 </body>
 </html>

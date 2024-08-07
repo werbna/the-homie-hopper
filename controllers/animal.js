@@ -127,13 +127,14 @@ router.post('/:id/comments', isSignedIn, async (req, res) => {
 
 router.delete('/:id/comments/:commentId', isSignedIn, isCommentAuthor, async (req, res) => {
   try {
-    const animal = await Animal.findById(req.params.id);
-    const comment = animal.comments.id(req.params.commentId);
-    comment.remove();
-    await animal.save();
+    const animal = await Animal.findByIdAndUpdate(
+      req.params.id,
+      { $pull: { comments: { _id: req.params.commentId } } },
+      { new: true }
+    );
     res.redirect(`/animals/${animal._id}`);
-  } catch (err) {
-    console.log('Error deleting comment:', err);
+  } catch (error) {
+    console.error('Error deleting comment:', error);
     res.redirect(`/animals/${req.params.id}`);
   }
 });

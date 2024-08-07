@@ -65,21 +65,25 @@ router.put('/:id', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
   try {
-    const animal = await Animal.findById(req.params.id).populate('location').populate('favoriteBy').populate('owner');
+    const animal = await Animal.findById(req.params.id)
+      .populate('location')
+      .populate('favoriteBy')
+      .populate({
+        path: 'comments',
+        populate: {
+          path: 'author',
+          model: 'User'
+        }
+      })
+      .populate('owner');
     const currentUser = req.session.user;
-    res.render('animals/show', { animal,currentUser });
-  } catch (err) {
-    console.log(err);
+    res.render('animals/show', { animal, currentUser });
+  } catch (error) {
+    console.error(error);
+    res.redirect('/');
   }
 });
-router.delete('/:id', async (req, res) => {
-  try {
-    await Animal.findByIdAndDelete(req.params.id);
-    res.redirect('/animals');
-  } catch (err) {
-    console.log(err);
-  }
-});
+
 
 router.post('/:id/favorite', isSignedIn, async (req, res) => {
   try {

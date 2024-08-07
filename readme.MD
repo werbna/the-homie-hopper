@@ -192,43 +192,44 @@ async function deleteComment(req, res) {
 
 ## Folder Structure
 
+```plaintext
 homie-hopper/
 ├── controllers/
-│ ├── animal.js
-│ ├── shelter.js
-│ └── user.js
+│   ├── animal.js
+│   ├── shelter.js
+│   └── user.js
 ├── middleware/
-│ ├── is-comment-author.js
-│ ├── is-signed-in.js
-│ └── pass-user-to-view.js
+│   ├── is-comment-author.js
+│   ├── is-signed-in.js
+│   └── pass-user-to-view.js
 ├── models/
-│ ├── animal.js
-│ ├── comment.js
-│ ├── shelter.js
-│ └── user.js
+│   ├── animal.js
+│   ├── comment.js
+│   ├── shelter.js
+│   └── user.js
 ├── public/
-│ ├── css/
-│ │ └── styles.css
-│ └── js/
-│ └── script.js
+│   ├── css/
+│   │   └── styles.css
+│   └── js/
+│       └── script.js
 ├── views/
-│ ├── animals/
-│ │ ├── edit.ejs
-│ │ ├── index.ejs
-│ │ ├── new.ejs
-│ │ └── show.ejs
-│ ├── partials/
-│ │ └── _navbar.ejs
-│ ├── shelters/
-│ │ ├── edit.ejs
-│ │ ├── index.ejs
-│ │ ├── new.ejs
-│ │ └── show.ejs
-│ ├── users/
-│ │ ├── sign-in.ejs
-│ │ ├── sign-up.ejs
-│ │ └── profile.ejs
-│ └── index.ejs
+│   ├── animals/
+│   │   ├── edit.ejs
+│   │   ├── index.ejs
+│   │   ├── new.ejs
+│   │   └── show.ejs
+│   ├── partials/
+│   │   └── _navbar.ejs
+│   ├── shelters/
+│   │   ├── edit.ejs
+│   │   ├── index.ejs
+│   │   ├── new.ejs
+│   │   └── show.ejs
+│   ├── users/
+│   │   ├── sign-in.ejs
+│   │   ├── sign-up.ejs
+│   │   └── profile.ejs
+│   └── index.ejs
 ├── .env
 ├── .gitignore
 ├── app.js

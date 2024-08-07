@@ -2,25 +2,38 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
     <title>New Shelter</title>
 </head>
 <body>
   <%- include('../partials/_navbar') %>
 
-  <h1>New Shelter</h1>
-  <form action="/shelters" method="POST">
-    <label for="organization">Organization:</label>
-    <input type="text" name="organization" placeholder="Organization" required>
+  <div class="container">
+    <h1>New Shelter</h1>
+    <form action="/shelters" method="POST" class="shelter-form">
+      <div class="form-group">
+        <label for="organization">Organization:</label>
+        <input type="text" name="organization" id="organization" placeholder="Organization" required>
+      </div>
 
-    <label for="name">Name:</label>
-    <input type="text" name="name" placeholder="Name" required>
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name" placeholder="Name" required>
+      </div>
 
-    <label for="location">Location: </label>
-    <input type="text" name="location" placeholder="Location" required>
+      <div class="form-group">
+        <label for="location">Location:</label>
+        <input type="text" name="location" id="location" placeholder="Location" required>
+      </div>
 
-    <label for="contact">Contact: </label>
-    <input type="text" name="contact" placeholder="Contact" required>
+      <div class="form-group">
+        <label for="contact">Contact:</label>
+        <input type="text" name="contact" id="contact" placeholder="Contact" required>
+      </div>
 
-    <button type="submit">Add Shelter to List</button>
-  </form>
-  
+      <button type="submit">Add Shelter to List</button>
+    </form>
+  </div>
+</body>
+</html>

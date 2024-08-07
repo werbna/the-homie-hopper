@@ -3,72 +3,90 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Edit Animal</title>
   <link rel="stylesheet" href="/css/styles.css">
+  <title>Edit Animal</title>
   <script src="/js/script.js"></script>
 </head>
 <body>
   <%- include('../partials/_navbar') %>
 
-  <h1>Edit Animal</h1>
-  <form action="/animals/<%= animal._id %>?_method=PUT" method="POST">
-    <label for="typeOfAnimal">Type of Animal: </label>
-    <input type="text" name="typeOfAnimal" id="typeOfAnimal" value="<%= animal.typeOfAnimal %>" required>
+  <div class="container">
+    <h1>Edit Animal</h1>
+    <form action="/animals/<%= animal._id %>?_method=PUT" method="POST">
+      <div class="form-group">
+        <label for="typeOfAnimal">Type of Animal: </label>
+        <input type="text" name="typeOfAnimal" id="typeOfAnimal" value="<%= animal.typeOfAnimal %>" required>
+      </div>
 
-    <label for="breed">Breed: </label>
-    <input type="text" name="breed" id="breed" value="<%= animal.breed %>" required>
+      <div class="form-group">
+        <label for="breed">Breed: </label>
+        <input type="text" name="breed" id="breed" value="<%= animal.breed %>" required>
+      </div>
 
-    <label for="location">Location: </label>
-    <select name="location" id="location" onchange="toggleAdoptionDate()" required>
-      <% shelters.forEach(shelter => { %>
-        <option value="<%= shelter._id %>" <%= animal.location && animal.location.toString() === shelter._id.toString() ? 'selected' : '' %>><%= shelter.name %></option>
-      <% }) %>
-    </select>
+      <div class="form-group">
+        <label for="location">Location: </label>
+        <select name="location" id="location" required>
+          <% shelters.forEach(shelter => { %>
+            <option value="<%= shelter._id %>" <%= animal.location && animal.location.toString() === shelter._id.toString() ? 'selected' : '' %>><%= shelter.name %></option>
+          <% }) %>
+        </select>
+      </div>
 
-    <label for="name">Name: </label>
-    <input type="text" name="name" id="name" value="<%= animal.name %>" required>
+      <div class="form-group">
+        <label for="name">Name: </label>
+        <input type="text" name="name" id="name" value="<%= animal.name %>" required>
+      </div>
 
-    <label for="age">Age: </label>
-    <input type="number" name="age" id="age" value="<%= animal.age %>" required>
+      <div class="form-group">
+        <label for="age">Age: </label>
+        <input type="number" name="age" id="age" value="<%= animal.age %>" required>
+      </div>
 
-    <label for="coat">Coat:</label>
-    <select name="coat" id="coat" required>
-      <option value="short" <%= animal.coat === 'short' ? 'selected' : '' %>>Short</option>
-      <option value="medium" <%= animal.coat === 'medium' ? 'selected' : '' %>>Medium</option>
-      <option value="long" <%= animal.coat === 'long' ? 'selected' : '' %>>Long</option>
-      <option value="curly" <%= animal.coat === 'curly' ? 'selected' : '' %>>Curly</option>
-      <option value="hairless" <%= animal.coat === 'hairless' ? 'selected' : '' %>>Hairless</option>
-    </select>
+      <div class="form-group">
+        <label for="coat">Coat:</label>
+        <select name="coat" id="coat" required>
+          <option value="short" <%= animal.coat === 'short' ? 'selected' : '' %>>Short</option>
+          <option value="medium" <%= animal.coat === 'medium' ? 'selected' : '' %>>Medium</option>
+          <option value="long" <%= animal.coat === 'long' ? 'selected' : '' %>>Long</option>
+          <option value="curly" <%= animal.coat === 'curly' ? 'selected' : '' %>>Curly</option>
+          <option value="hairless" <%= animal.coat === 'hairless' ? 'selected' : '' %>>Hairless</option>
+        </select>
+      </div>
 
-    <label for="adopted">Adopted:</label>
-    <select name="adopted" id="adopted" onchange="toggleAdoptionDate()" required>
-      <option value="no" <%= animal.adopted === 'no' ? 'selected' : '' %>>No</option>
-      <option value="yes" <%= animal.adopted === 'yes' ? 'selected' : '' %>>Yes</option>
-    </select>
+      <div class="form-group">
+        <label for="adopted">Adopted:</label>
+        <select name="adopted" id="adopted" onchange="toggleAdoptionDate()" required>
+          <option value="no" <%= animal.adopted === 'no' ? 'selected' : '' %>>No</option>
+          <option value="yes" <%= animal.adopted === 'yes' ? 'selected' : '' %>>Yes</option>
+        </select>
+      </div>
 
-    <div id="adoptionDateField" style="display: none;">
-      <label for="adoptionDate">Adoption Date:</label>
-      <input type="date" name="adoptionDate" id="adoptionDate" value="<%= animal.adoptionDate %>">
-    </div>
+      <div id="adoptionDateField" class="form-group" style="display: none;">
+        <label for="adoptionDate">Adoption Date:</label>
+        <input type="date" name="adoptionDate" id="adoptionDate" value="<%= animal.adoptionDate %>">
+      </div>
 
-    <div id="ownerField" style="display: none;">
-      <label for="owner" id="ownerLabel" style="display: none;">Owner:</label>
-      <select name="owner" id="owner">
-        <% owners.forEach(owner => { %>
-          <option value="<%= owner._id %>" <%= animal.owner && animal.owner.toString() === owner._id.toString() ? 'selected' : '' %>><%= owner.username %></option>
-        <% }) %>
-      </select>
-    </div>
+      <div id="ownerField" class="form-group" style="display: none;">
+        <label for="owner" id="ownerLabel" style="display: none;">Owner:</label>
+        <select name="owner" id="owner">
+          <% owners.forEach(owner => { %>
+            <option value="<%= owner._id %>" <%= animal.owner && animal.owner.toString() === owner._id.toString() ? 'selected' : '' %>><%= owner.username %></option>
+          <% }) %>
+        </select>
+      </div>
 
-    <label for="favoriteBy">Favorite By:</label>
-    <button type="button" onclick="showFavorites()">Show Favorites</button>
-    <ul id="favoriteByList" style="display: none;">
-      <% animal.favoriteBy.forEach(user => { %>
-        <li><%= user.username %></li>
-      <% }) %>
-    </ul>
+      <div class="form-group">
+        <label for="favoriteBy">Favorite By:</label>
+        <button type="button" onclick="showFavorites()">Show Favorites</button>
+        <ul id="favoriteByList" style="display: none;">
+          <% animal.favoriteBy.forEach(user => { %>
+            <li><%= user.username %></li>
+          <% }) %>
+        </ul>
+      </div>
 
-    <button type="submit">Update Animal</button>
-  </form>
+      <button type="submit">Update Animal</button>
+    </form>
+  </div>
 </body>
 </html>

@@ -3,28 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/styles.css">
   <title><%= shelter.name %></title>
 </head>
 <body>
   <%- include('../partials/_navbar') %>
 
-  <h1><%= shelter.name %></h1>
-  <p>Organization: <%= shelter.organization %></p>
-  <p>Location: <%= shelter.location %></p>
-  <p>Contact: <%= shelter.contact %></p>
+  <div class="container">
+    <div class="shelter-details">
+      <h1><%= shelter.name %></h1>
+      <p>Organization: <%= shelter.organization %></p>
+      <p>Location: <%= shelter.location %></p>
+      <p>Contact: <%= shelter.contact %></p>
 
-  <h3>Animals:</h3>
-  <ul>
-    <% shelter.animals.forEach(animal => { %>
-      <li><a href="/animals/<%= animal._id %>"><%= animal.name %></a> - <%= animal.typeOfAnimal %>
-      </li>
-    <% }) %>
-  </ul>
+      <h3>Animals:</h3>
+      <ul>
+        <% shelter.animals.forEach(animal => { %>
+          <li><a href="/animals/<%= animal._id %>"><%= animal.name %></a> - <%= animal.typeOfAnimal %></li>
+        <% }) %>
+      </ul>
 
-  <a href="/shelters/<%= shelter._id %>/edit">Edit</a>
-  <form action="/shelters/<%= shelter._id %>" method="post">
-    <input type="hidden" name="_method" value="delete">
-    <button type="submit">Delete</button>
-  </form>
+      <a href="/shelters/<%= shelter._id %>/edit" class="button-link">Edit</a>
+      <form action="/shelters/<%= shelter._id %>" method="post" style="display:inline;">
+        <input type="hidden" name="_method" value="delete">
+        <button type="submit">Delete</button>
+      </form>
+    </div>
+  </div>
 </body>
 </html>

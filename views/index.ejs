@@ -3,34 +3,37 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/styles.css">
   <title>Home Page</title>
 </head>
 <body>
-  <%- include('./partials/_navbar.ejs') %>
+  <%- include('partials/_navbar.ejs') %>
 
-  <% if (user) { %>
-    <h1>Welcome to the app, <%= user.username %>!</h1>
-    <p>
-      <a href="/users/sign-out">Sign out</a>
-    </p>
-    <% if (favoritedAnimals.length > 0) { %>
-      <h2>Your Favorited Pets</h2>
-      <ul>
-        <% favoritedAnimals.forEach(animal => { %>
-          <li>
-            <a href="/animals/<%= animal._id %>"><%= animal.name %></a>
-          </li>
-        <% }) %>
-      </ul>
+  <div class="container">
+    <% if (user) { %>
+      <h1>Welcome to the app, <%= user.username %>!</h1>
+      <p>
+        <a href="/users/sign-out">Sign out</a>
+      </p>
+      <% if (favoritedAnimals.length > 0) { %>
+        <h2>Your Favorited Pets</h2>
+        <ul>
+          <% favoritedAnimals.forEach(animal => { %>
+            <li>
+              <a href="/animals/<%= animal._id %>"><%= animal.name %></a>
+            </li>
+          <% }) %>
+        </ul>
+      <% } else { %>
+        <p>You have no favorite pets.</p>
+      <% } %>
     <% } else { %>
-      <p>You have no favorited pets.</p>
+      <h1>Welcome to the app, guest.</h1>
+      <p>
+        <a href="/users/sign-up">Sign up</a> or
+        <a href="/users/sign-in">Sign in</a>.
+      </p>
     <% } %>
-  <% } else { %>
-    <h1>Welcome to the app, guest.</h1>
-    <p>
-      <a href="/users/sign-up">Sign up</a> or
-      <a href="/users/sign-in">Sign in</a>.
-    </p>
-  <% } %>
+  </div>
 </body>
 </html>

@@ -3,63 +3,81 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/styles.css">
+  <script src="/public/css/js/script.js"></script>
   <title>New Animal</title>
 </head>
 <body>
   <%- include('../partials/_navbar') %>
 
-  <h1>New Animal</h1>
-  <form action="/animals" method="POST">
-    <label for="typeOfAnimal">Type of Animal:</label>
-    <input type="text" name="typeOfAnimal" id="typeOfAnimal" required>
+  <div class="container">
+    <h1>New Animal</h1>
+    <form action="/animals" method="POST">
+      <div class="form-group">
+        <label for="typeOfAnimal">Type of Animal:</label>
+        <input type="text" name="typeOfAnimal" id="typeOfAnimal" required>
+      </div>
 
-    <label for="breed">Breed:</label>
-    <input type="text" name="breed" id="breed" required>
+      <div class="form-group">
+        <label for="breed">Breed:</label>
+        <input type="text" name="breed" id="breed" required>
+      </div>
 
-    <label for="location">Location:</label>
-    <select name="location" id="location" required>
-      <% shelters.forEach(shelter => { %>
-        <option value="<%= shelter._id %>"><%= shelter.name %></option>
-      <% }) %>
-    </select>
+      <div class="form-group">
+        <label for="location">Location:</label>
+        <select name="location" id="location" required>
+          <% shelters.forEach(shelter => { %>
+            <option value="<%= shelter._id %>"><%= shelter.name %></option>
+          <% }) %>
+        </select>
+      </div>
 
-    <label for="name">Name:</label>
-    <input type="text" name="name" id="name" required>
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name" required>
+      </div>
 
-    <label for="age">Age:</label>
-    <input type="number" name="age" id="age" required>
+      <div class="form-group">
+        <label for="age">Age:</label>
+        <input type="number" name="age" id="age" required>
+      </div>
 
-    <label for="coat">Coat:</label>
-    <select name="coat" id="coat" required>
-      <option value="short">Short</option>
-      <option value="medium">Medium</option>
-      <option value="long">Long</option>
-      <option value="curly">Curly</option>
-      <option value="hairless">Hairless</option>
-    </select>
+      <div class="form-group">
+        <label for="coat">Coat:</label>
+        <select name="coat" id="coat" required>
+          <option value="short">Short</option>
+          <option value="medium">Medium</option>
+          <option value="long">Long</option>
+          <option value="curly">Curly</option>
+          <option value="hairless">Hairless</option>
+        </select>
+      </div>
 
-    <label for="adopted">Adopted:</label>
-    <select name="adopted" id="adopted" onchange="toggleAdoptionDate()" required>
-      <option value="no">No</option>
-      <option value="yes">Yes</option>
-    </select>
+      <div class="form-group">
+        <label for="adopted">Adopted:</label>
+        <select name="adopted" id="adopted" onchange="toggleAdoptionDate()" required>
+          <option value="no">No</option>
+          <option value="yes">Yes</option>
+        </select>
+      </div>
 
-    <div id="adoptionDateField" style="display: none;">
-      <label for="adoptionDate">Adoption Date:</label>
-      <input type="date" name="adoptionDate" id="adoptionDate">
-    </div>
+      <div id="adoptionDateField" class="form-group" style="display: none;">
+        <label for="adoptionDate">Adoption Date:</label>
+        <input type="date" name="adoptionDate" id="adoptionDate">
+      </div>
 
-    <div id="ownerField" style="display: none;">
-      <label for="owner" id="ownerLabel" style="display: none;">Owner:</label>
-      <select name="owner" id="owner">
-        <% owners.forEach(owner => { %>
-          <option value="<%= owner._id %>"><%= owner.username %></option>
-        <% }) %>
-      </select>
-    </div>
+      <div id="ownerField" class="form-group" style="display: none;">
+        <label for="owner" id="ownerLabel" style="display: none;">Owner:</label>
+        <select name="owner" id="owner">
+          <% owners.forEach(owner => { %>
+            <option value="<%= owner._id %>"><%= owner.username %></option>
+          <% }) %>
+        </select>
+      </div>
 
-    <button type="submit">Add Animal</button>
-  </form>
+      <button type="submit">Add Animal</button>
+    </form>
+  </div>
   <script src="/js/script.js"></script>
 </body>
 </html>

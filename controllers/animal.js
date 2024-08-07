@@ -4,12 +4,13 @@ const User = require('../models/user');
 const Shelter = require('../models/shelter');
 const Animal = require('../models/animal');
 const isSignedIn = require('../middleware/is-signed-in');
+const isCommentAuthor = require('../middleware/is-comment-author');
 router.get('/', async (req, res) => {
   try {
     const animals = await Animal.find({});
     res.render('animals/index', { animals });
   } catch (error) {
-    console.error(error);
+    console.log(error);
     res.redirect('/');
   }
 });
@@ -20,7 +21,7 @@ router.get('/new', async (req, res) => {
     const owners = await User.find(); // Fetch the list of users
     res.render('animals/new', { shelters, owners });
   } catch (err) {
-    console.error(err);
+    console.log(err);
   }
 });
 
@@ -36,8 +37,8 @@ router.post('/', async (req, res) => {
     await shelter.save();
     }
 
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    console.log(err);
   }
 });
 
@@ -48,7 +49,7 @@ router.get('/:id/edit', async (req, res) => {
     const owners = await User.find();
     res.render('animals/edit', { animal, shelters, owners });
   } catch (err) {
-    console.error(err);
+    console.log(err);
     res.redirect('/');
   }
 });
@@ -57,8 +58,8 @@ router.put('/:id', async (req, res) => {
   try {
     await Animal.findByIdAndUpdate(req.params.id, req.body);
     res.redirect(`/animals/${req.params.id}`);
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    console.log(err);
   }
 });
 
@@ -67,16 +68,16 @@ router.get('/:id', async (req, res) => {
     const animal = await Animal.findById(req.params.id).populate('location').populate('favoriteBy').populate('owner');
     const currentUser = req.session.user;
     res.render('animals/show', { animal,currentUser });
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    console.log(err);
   }
 });
 router.delete('/:id', async (req, res) => {
   try {
     await Animal.findByIdAndDelete(req.params.id);
     res.redirect('/animals');
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    console.log(err);
   }
 });
 
@@ -102,11 +103,41 @@ router.post('/:id/favorite', isSignedIn, async (req, res) => {
     }
 
     res.redirect(`/animals/${animal._id}`);
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    console.log(err);
     res.redirect(`/animals/${req.params.id}`);
   }
 });
+
+router.post('/:id/comments', isSignedIn, async (req, res) => {
+  try {
+    const animal = await Animal.findById(req.params.id);
+    const comment = {
+      text: req.body.text,
+      author: req.session.user._id,
+    };
+    animal.comments.push(comment);
+    await animal.save();
+    res.redirect(`/animals/${animal._id}`);
+  } catch (err) {
+    console.log('Error adding comment:', err);
+    res.redirect(`/animals/${req.params.id}`);
+  }
+});
+
+router.delete('/:id/comments/:commentId', isSignedIn, isCommentAuthor, async (req, res) => {
+  try {
+    const animal = await Animal.findById(req.params.id);
+    const comment = animal.comments.id(req.params.commentId);
+    comment.remove();
+    await animal.save();
+    res.redirect(`/animals/${animal._id}`);
+  } catch (err) {
+    console.log('Error deleting comment:', err);
+    res.redirect(`/animals/${req.params.id}`);
+  }
+});
+
 
 
 module.exports = router;

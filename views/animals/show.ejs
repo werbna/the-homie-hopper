@@ -3,36 +3,69 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/styles.css">
   <script src="/js/script.js"></script>
   <title>View Animal</title>
 </head>
 <body>
   <%- include('../partials/_navbar') %>
 
-  <h1><%= animal.name %></h1>
-  <p>Type: <%= animal.typeOfAnimal %></p>
-  <p>Breed: <%= animal.breed %></p>
-  <p>Age: <%= animal.age %></p>
-  <p>Coat: <%= animal.coat %></p>
-  <p>Adopted: <%= animal.adopted ? 'Yes' : 'No' %></p>
-  <% if (animal.adopted) { %>
-    <p>Adoption Date: <%= animal.adoptionDate.toDateString() %></p>
-  <% } %>
-
-  <form action="/animals/<%= animal._id %>/favorite" method="POST">
-    <button type="submit">
-      <% if (animal.favoriteBy.some(user => user._id.toString() === currentUser._id.toString())) { %>
-        Unfavorite
-      <% } else { %>
-        Favorite
+  <div class="container">
+    <div class="animal-details">
+      <h1><%= animal.name %></h1>
+      <p>Type: <%= animal.typeOfAnimal %></p>
+      <p>Breed: <%= animal.breed %></p>
+      <p>Age: <%= animal.age %></p>
+      <p>Coat: <%= animal.coat %></p>
+      <p>Adopted: <%= animal.adopted ? 'Yes' : 'No' %></p>
+      <% if (animal.adopted) { %>
+        <p>Adoption Date: <%= animal.adoptionDate.toDateString() %></p>
       <% } %>
-    </button>
-  </form>
 
-  <a href="/animals/<%= animal._id %>/edit">Edit</a>
-  <form action="/animals/<%= animal._id %>?_method=DELETE" method="post">
-    <input type="hidden" name="_method" value="delete">
-    <button type="submit">Delete</button>
-  </form>
+      <form action="/animals/<%= animal._id %>/favorite" method="POST">
+        <button type="submit">
+          <% if (animal.favoriteBy.some(user => user._id.toString() === currentUser._id.toString())) { %>
+            Unfavorite
+          <% } else { %>
+            Favorite
+          <% } %>
+        </button>
+      </form>
+
+      <form action='/animals/<%= animal._id %>/edit' method='get' style='display: inline;'>
+        <button type='submit'>Edit Animal</button>
+    </form>
+    
+      <form action="/animals/<%= animal._id %>?_method=DELETE" method="post" style="display:inline;">
+        <input type="hidden" name="_method" value="delete">
+        <button type="submit">Delete</button>
+      </form>
+    </div>
+
+    <div class="comments-section">
+      <h2>Comments</h2>
+      <ul>
+        <% animal.comments.forEach(comment => { %>
+          <li>
+            <p><strong><%= comment.author.username %>:</strong> <%= comment.text %></p>
+            <% if (comment.author._id.toString() === currentUser._id.toString()) { %>
+              <form action="/animals/<%= animal._id %>/comments/<%= comment._id %>?_method=DELETE" method="post" style="display:inline;">
+                <input type="hidden" name="_method" value="delete">
+                <button type="submit">Delete</button>
+              </form>
+            <% } %>
+          </li>
+        <% }) %>
+      </ul>
+    </div>
+
+    <div class="add-comment">
+      <h3>Add a Comment</h3>
+      <form action="/animals/<%= animal._id %>/comments" method="POST">
+        <textarea name="text" required></textarea>
+        <button type="submit">Add Comment</button>
+      </form>
+    </div>
+  </div>
 </body>
 </html>

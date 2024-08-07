@@ -2,22 +2,27 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
     <title>Shelters</title>
 </head>
 <body>
   <%- include('../partials/_navbar') %>
 
-  <h1>Shelters</h1>
-  <ul>
-    <% shelters.forEach(shelter => { %>
-      <li>
-        <a href="/shelters/<%= shelter._id %>"><%= shelter.name %></a>
-        <a href="/shelters/<%= shelter._id %>/edit">Edit</a>
-        <form action="/shelters/<%= shelter._id %>?_method=DELETE" method="POST" style="display:inline;">
-          <button type="submit">Delete</button>
-        </form>
-      </li>
-    <% }) %>
-  </ul>
-  <a href="/shelters/new">Add Shelter</a>
-  
+  <div class="container">
+    <h1>Shelters</h1>
+    <ul>
+      <% shelters.forEach(shelter => { %>
+        <li>
+          <a href="/shelters/<%= shelter._id %>"><%= shelter.name %></a>
+          <a href="/shelters/<%= shelter._id %>/edit" class="button-link">Edit</a>
+          <form action="/shelters/<%= shelter._id %>?_method=DELETE" method="POST" style="display:inline;">
+            <button type="submit">Delete</button>
+          </form>
+        </li>
+      <% }) %>
+    </ul>
+    <a href="/shelters/new" class="button-link">Add Shelter</a>
+  </div>
+</body>
+</html>

@@ -6,18 +6,17 @@ const mongoose = require('mongoose');
 const methodOverride = require('method-override');
 const morgan = require('morgan');
 const session = require('express-session');
-const isSignedIn = require('./middleware/is-signed-in.js');
-const passUserToView = require('./middleware/pass-user-to-view.js');
-const userController = require('./controllers/user.js')
-const shelterController = require('./controllers/shelter.js')
-const animalsController = require('./controllers/animal.js')
-const User = require('./models/user');
-const Animal = require('./models/animal');
 const path = require('path');
+const isSignedIn = require('./middleware/is-signed-in');
+const passUserToView = require('./middleware/pass-user-to-view');
+const userController = require('./controllers/user');
+const shelterController = require('./controllers/shelter');
+const animalsController = require('./controllers/animal');
+const User = require('./models/user');
 
 app.set('view engine', 'ejs');
 
-const port = process.env.PORT ? process.env.PORT : '3000';
+const port = process.env.PORT || 3000;
 
 mongoose.connect(process.env.MONGODB_URI);
 
@@ -26,7 +25,6 @@ mongoose.connection.on('connected', () => {
 });
 
 app.use(express.static(path.join(__dirname, 'public')));
-
 app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride('_method'));
 // app.use(morgan('dev'));
@@ -49,6 +47,7 @@ app.get('/', async (req, res) => {
     res.render('index', { user, favoritedAnimals });
   } catch (error) {
     console.error(error);
+    res.redirect('/');
   }
 });
 

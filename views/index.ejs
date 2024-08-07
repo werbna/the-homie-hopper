@@ -10,8 +10,11 @@
   <%- include('partials/_navbar.ejs') %>
 
   <div class="container">
+
+    <img src="https://i.imgur.com/pvqs3wN.png" alt="pet gang" class="home-image">
+
     <% if (user) { %>
-      <h1>Welcome to the app, <%= user.username %>!</h1>
+      <h1>Welcome to the Homie Hopper App, <%= user.username %>!</h1>
       <p>
         <a href="/users/sign-out">Sign out</a>
       </p>

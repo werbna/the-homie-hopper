@@ -7,6 +7,76 @@ Homie Hopper is a web application for managing animals in shelters. Users can vi
 <img src="https://i.imgur.com/7mkvw6c.png">
 <img src="https://i.imgur.com/VNh60ID.png">
 
+
+## Technologies
+![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white)
+![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
+![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
+![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
+![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
+![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
+
+## Features
+
+- User authentication (sign up, sign in, sign out)
+- View, add, edit, and delete animals
+- View, add, edit, and delete shelters
+- Leave comments on animals
+- Mark animals as favorites
+
+## Usage
+
+1. Open your browser and navigate to `http://localhost:3000`.
+2. Sign up or sign in to start using the application.
+3. Use the navigation bar to access different sections of the application.
+
+## Folder Structure
+
+```plaintext
+homie-hopper/
+├── controllers/
+│   ├── animal.js
+│   ├── shelter.js
+│   └── user.js
+├── middleware/
+│   ├── is-comment-author.js
+│   ├── is-signed-in.js
+│   └── pass-user-to-view.js
+├── models/
+│   ├── animal.js
+│   ├── comment.js
+│   ├── shelter.js
+│   └── user.js
+├── public/
+│   ├── css/
+│   │   └── styles.css
+│   └── js/
+│       └── script.js
+├── views/
+│   ├── animals/
+│   │   ├── edit.ejs
+│   │   ├── index.ejs
+│   │   ├── new.ejs
+│   │   └── show.ejs
+│   ├── partials/
+│   │   └── _navbar.ejs
+│   ├── shelters/
+│   │   ├── edit.ejs
+│   │   ├── index.ejs
+│   │   ├── new.ejs
+│   │   └── show.ejs
+│   ├── users/
+│   │   ├── sign-in.ejs
+│   │   ├── sign-up.ejs
+│   │   └── profile.ejs
+│   └── index.ejs
+├── .env
+├── .gitignore
+├── app.js
+├── package-lock.json
+├── package.json
+└── README.md
+
 ## Routing Examples
 
 ### Animals
@@ -166,73 +236,3 @@ async function deleteComment(req, res) {
   }
 }
 ```
-
-
-## Technologies
-![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white)
-![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
-![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
-![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
-![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
-![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
-
-## Features
-
-- User authentication (sign up, sign in, sign out)
-- View, add, edit, and delete animals
-- View, add, edit, and delete shelters
-- Leave comments on animals
-- Mark animals as favorites
-
-## Usage
-
-1. Open your browser and navigate to `http://localhost:3000`.
-2. Sign up or sign in to start using the application.
-3. Use the navigation bar to access different sections of the application.
-
-## Folder Structure
-
-```plaintext
-homie-hopper/
-├── controllers/
-│   ├── animal.js
-│   ├── shelter.js
-│   └── user.js
-├── middleware/
-│   ├── is-comment-author.js
-│   ├── is-signed-in.js
-│   └── pass-user-to-view.js
-├── models/
-│   ├── animal.js
-│   ├── comment.js
-│   ├── shelter.js
-│   └── user.js
-├── public/
-│   ├── css/
-│   │   └── styles.css
-│   └── js/
-│       └── script.js
-├── views/
-│   ├── animals/
-│   │   ├── edit.ejs
-│   │   ├── index.ejs
-│   │   ├── new.ejs
-│   │   └── show.ejs
-│   ├── partials/
-│   │   └── _navbar.ejs
-│   ├── shelters/
-│   │   ├── edit.ejs
-│   │   ├── index.ejs
-│   │   ├── new.ejs
-│   │   └── show.ejs
-│   ├── users/
-│   │   ├── sign-in.ejs
-│   │   ├── sign-up.ejs
-│   │   └── profile.ejs
-│   └── index.ejs
-├── .env
-├── .gitignore
-├── app.js
-├── package-lock.json
-├── package.json
-└── README.md

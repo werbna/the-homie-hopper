@@ -37,6 +37,7 @@ function favoriteAnimal(animalId) {
   }).catch(error => console.error('Error:', error));
 }
 
+document.getElementById('adopted').onchange = toggleAdoptionDate;
 window.onload = function() {
   toggleAdoptionDate();
 };
